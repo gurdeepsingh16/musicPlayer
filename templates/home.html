@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    body {
+        background-color: rgb(95, 158, 160);
+        color: aliceblue;
+    }
+
+    .conatiner-fluid {
+        height: 100px;
+        width: 100%;
+        background-color: black;
+    }
+
+    img {
+        height: 104px;
+        margin-left: 41px;
+        background-color: rgb(95, 158, 160);
+    }
+
+    .leftbar {
+        margin-top: 10px;
+        height: 500px;
+        width: 25%;
+        background-color: black;
+        /* outline: auto; */
+    }
+
+    #song {
+        color: aliceblue;
+        text-align: center;
+    }
+
+    #sname {
+        color: aliceblue;
+    }
+
+    .main {
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+        height: 100px;
+        width: 100%;
+        outline: auto;
+    }
+</style>
+
+<body>
+    <div class="conatiner-fluid">
+        <div class="img">
+
+            <img src="https://steemitimages.com/640x0/https://cdn.steemitimages.com/DQme5UZBBrDUheMvq7UrQfik9qYuDedHPoRcedquzgRDG7C/DiscLogo.png"
+                alt="">
+        </div>
+
+    </div>
+
+    <div class="leftbar">
+        <h1 id="song">Songs</h1>
+
+        {% for j in data1 %}
+        <a href="{% url 'playondemand' j.id %}">{{ j.song_name}}</a><br>
+
+        {% endfor %}
+
+    </div>
+    <div class="main">
+
+        {% if ondemand %}
+        <h3 id="sname">{{ondemand.song_name}}</h3>
+
+        <button onclick="play()"> play </button>
+        <button onclick="stop()">pause</button>
+        <audio controls id="audio">
+
+            <source src="{{ondemand.song.url}}" type="audio/ogg" id="src">
+            Your browser does not support the audio element.
+        </audio>
+        {% include "page.html" with page=i %}
+
+        
+        {% endif %}
+        {% for i in data %}
+        
+        <h3 id="sname">{{i.song_name}}</h3>
+        <button onclick="play()"> play </button>
+        <button onclick="stop()">pause</button>
+
+        <audio controls id="audio">
+            <source src="{{i.song.url}}" type="audio/ogg" id="src">
+            Your browser does not support the audio element.
+        </audio>
+        {% endfor %}
+        {% include "page.html" with page=i %}
+
+    </div>
+
+    <script>
+
+        let ab = document.getElementById("audio").style.display = "none"
+        let sr = document.getElementById("src").src
+        console.log(sr)
+
+        let a = new Audio(sr)
+        function play() {
+            a.play()
+        }
+        function stop() {
+            a.pause()
+        }
+
+    </script>
+</body>
+
+</html>

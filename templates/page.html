@@ -1,0 +1,21 @@
+
+<style></style>
+ <div class="container p-4">
+        <div class="pagination justify-content-center">
+            <span class="step-links">
+              {% if data.has_previous %}
+                  
+                  <a href="?page={{ data.previous_page_number }}"><i class="fa fa-step-backward" style="font-size:36px;"></i></a>
+              {% endif %}
+
+                <span class="current">
+                    {% comment %} {{ data.number }} {{ data.paginator.num_pages }} {% endcomment %}
+                </span>
+
+              {% if data.has_next %}
+                  <a href="?page={{ data.next_page_number }}"><i class="fa fa-step-forward" style="font-size:36px;"></i></a>
+                  {% comment %} <a href="?page={{ data.paginator.num_pages }}"> &raquo;</a> {% endcomment %}
+              {% endif %}
+            </span>
+            </div>
+        </div>
